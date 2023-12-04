@@ -1,3 +1,4 @@
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -39,10 +40,36 @@ public class semester {
         this.courses = courses;
     } 
 
+        // Method to add a course to the semester
     public void addCourse(course course) {
         courses.put(course.getName(), course);
     }
     
+    // Method to get a course by name
+    public course getCourseByName(String courseName) {
+        return courses.get(courseName);
+    }
+
+
+    // Method to view prerequisites for a course
+    public List<course> viewPrerequisites(String courseName) {
+        course course = getCourseByName(courseName);
+        if (course != null) {
+            return course.getPrerequisites();
+        }
+        return Collections.emptyList();
+    }
+
+
+
+     // Method to register a student for a course
+    /*  public void registerStudentForCourse(student student, String courseName) {
+        course course = getCourseByName(courseName);
+        if (course != null) {
+            course.addStudent(student);
+        }
+    }
+    */
 }
 
 
