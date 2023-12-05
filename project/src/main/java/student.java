@@ -3,16 +3,17 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.OptionalDouble;
+import java.util.Set;
 import java.util.stream.DoubleStream;
 import java.util.stream.IntStream;
 
 public class student extends user {
 
-    Map<String,Double> Grades=new HashMap<>() ;
+    Map<course,Double> Grades=new HashMap<>() ;
     List<course>courses=new ArrayList<>();
 
-
-    public Map<String, Double> getGrades() {
+     
+    public Map<course, Double> getGrades() {
         return Grades;
     }
 
@@ -20,18 +21,17 @@ public class student extends user {
         return courses;
     }
 
-    // public String getState(){
-    //     String state;
-    //     // Extract the values containing grades and calculate the average
-    //     OptionalDouble average = Grades.values().stream().mapToDouble(Double::doubleValue).average();
+    public Double getState(){
+        String state;
+        // Extract the values containing grades and calculate the average
+        
+        Double sum = Grades.entrySet().stream().mapToDouble( e -> e.getKey().getCredits() * e.getValue()).sum();
+        Double sumOfCredits = Grades.values().parallelStream().reduce (0.0, (e1,e2) -> e1+e2 );
 
-    //     if (average.isPresent()) {
-    //        if(average>)
+        Double average = sum / sumOfCredits;
 
-    //     } else {
-    //         System.out.println("No grades available");
-    //     }
-    // }
+        return average;
+    }
    
 
 }
