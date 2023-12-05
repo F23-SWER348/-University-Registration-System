@@ -6,7 +6,11 @@ import java.util.OptionalDouble;
 import java.util.stream.DoubleStream;
 import java.util.stream.IntStream;
 
-public class student implements user {
+public class student extends user {
+
+    public student(String name, String role, String contactDetails) {
+        super(name, role, contactDetails);
+    }
 
     Map<String,Double> Grades=new HashMap<>() ;
     List<course>courses=new ArrayList<>();
@@ -20,23 +24,7 @@ public class student implements user {
         return courses;
     }
 
-    @Override
-    public String getName() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getName'");
-    }
 
-    @Override
-    public String getRole() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getRole'");
-    }
-
-    @Override
-    public String getContactDetails() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getContactDetails'");
-    }
 
     // public String getState(){
     //     String state;
