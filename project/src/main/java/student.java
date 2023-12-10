@@ -9,10 +9,13 @@ import java.util.stream.IntStream;
 
 public class student extends user {
 
-    Map<course,Double> Grades=new HashMap<>() ;
+    private Map<course,Double> Grades=new HashMap<>() ;
     List<course>courses=new ArrayList<>();
 
-     
+    public student(String name, String role, String contactDetails) {
+        super(name, role, contactDetails);
+    }
+
     public Map<course, Double> getGrades() {
         return Grades;
     }
@@ -21,8 +24,16 @@ public class student extends user {
         return courses;
     }
 
-    public Double getState(){
-        String state;
+    public void addGrade(course c,Double d){
+     Grades.put(c, d);
+    }
+
+    
+    public void addCourseForStu(course c){
+     courses.add(c);
+    }
+
+    public Double getAverage(){
         // Extract the values containing grades and calculate the average
         
         Double sum = Grades.entrySet().stream().mapToDouble( e -> e.getKey().getCredits() * e.getValue()).sum();
@@ -33,5 +44,19 @@ public class student extends user {
         return average;
     }
    
+
+       public String getState(){
+       Double avg=this.getAverage();
+
+       if(avg>=3.50)
+           return "Dean's list";
+        else if (avg>=3.00)
+           return "Honour";
+        else if(avg>=2)
+        return "Unsatisfactory";
+
+        return "Proberation";
+        
+}
 
 }
