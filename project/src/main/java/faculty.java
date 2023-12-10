@@ -1,7 +1,8 @@
 import java.util.HashMap;
 import java.util.Map;
 
-public class faculty extends user {
+public class faculty extends user{
+    
 
     private Map<String, course> coursesTeaching = new HashMap<>();
 
@@ -25,6 +26,6 @@ public class faculty extends user {
     }
 }
 
-    
+
 
    
