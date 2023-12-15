@@ -5,18 +5,18 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-public class schedule2 extends course{
+public class schedule extends course{
     
     private Map<String, List<LocalTime>> weeklySchedule;
 
 
-    // public schedule2(String name, int credits, String faculty) {
+    // public schedule(String name, int credits, String faculty) {
     //     super(name, credits, faculty);
     //     this.weeklySchedule = new HashMap<>();
     // }
 
     // // Additional constructor for Schedule class
-    // public schedule2(String name, int credits, String faculty, Map<String,  List<LocalTime>> weeklySchedule) {
+    // public schedule(String name, int credits, String faculty, Map<String,  List<LocalTime>> weeklySchedule) {
     //     super(name, credits, faculty);
     //     this.weeklySchedule = weeklySchedule;
     // }
