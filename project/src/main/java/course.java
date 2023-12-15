@@ -7,7 +7,7 @@ public class course {
     private int credits;
     private String faculty;
     private List<Staff> staff;
-    private List<Course> prerequisites;
+    private List<course> prerequisites;
     private Map<String,List<LocalTime>> weeklyTime;
 
 
@@ -23,7 +23,7 @@ public class course {
     public List<Staff> getStaff() {
         return staff;
     }
-    public List<Course> getPrerequisites() {
+    public List<course> getPrerequisites() {
         return prerequisites;
     }
     public Map<String, List<LocalTime>> getWeeklyTime() {
@@ -35,7 +35,7 @@ public class course {
     staff.add(x);
    }
  
-   public void addPrerequisite(Course x){
+   public void addPrerequisite(course x){
     //add a new course as a prereqisite for this course
     prerequisites.add(x);
    }
