@@ -5,10 +5,10 @@ import java.util.Map;
 public class semester {
     private String name;
     private int year;
-    private Map<String, course> courses;
+    private List<course> courses;
 
 //add Constructors
-    public semester(String name, int year, Map<String, course> courses) {
+    public semester(String name, int year, List< course> courses) {
         this.name = name;
         this.year = year;
         this.courses = courses;
@@ -21,7 +21,7 @@ public class semester {
     public int getYear() {
         return year;
     }
-    public Map<String, course> getCourses() {
+    public List<course> getCourses() {
         return courses;
     }
 
