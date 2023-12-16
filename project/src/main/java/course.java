@@ -1,14 +1,16 @@
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 public class course {
+    
     private String name;
     private int credits;
     private String faculty;
-    private List<Staff> staff;
-    private List<course> prerequisites;
-    private Map<String,List<LocalTime>> weeklyTime;//day and date
+    private List<Staff> staff=new ArrayList<>();
+    private List<course> prerequisites=new ArrayList<>();
+    private List<schedule> schedules=new ArrayList<>();
 
 
     
@@ -35,8 +37,8 @@ public class course {
     public List<course> getPrerequisites() {
         return prerequisites;
     }
-    public Map<String, List<LocalTime>> getWeeklyTime() {
-        return weeklyTime;
+    public List<schedule> getschedules() {
+        return schedules;
     }
 
    public void addStaff(Staff x){

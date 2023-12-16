@@ -2,13 +2,11 @@ public abstract class user {
 String name;
 String role;
 String Faculty;
-schedule schedule2;
 
 public user(String name, String role, String Faculty) {
     this.name = name;
     this.role = role;
     this.Faculty = Faculty;
-    schedule2=new schedule(name, 0, Faculty)
 }
 
 // Getter methods
