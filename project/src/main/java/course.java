@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 public class course {
-    
+
     private String name;
     private int credits;
     private String faculty;
@@ -20,7 +20,7 @@ public class course {
         this.faculty = faculty;
     }
 
-
+   
     
     public String getName() {
         return name;
@@ -41,6 +41,10 @@ public class course {
         return schedules;
     }
 
+//add scheduale to the list of scheduales for this course
+   public void addSchedules(schedule newSchedule) {
+     schedule.createSchedule(newSchedule,schedules);
+    }
    public void addStaff(Staff x){
     //add staff to the list of staff for this course
     staff.add(x);
