@@ -1,12 +1,12 @@
 import java.util.HashMap;
 import java.util.Map;
 
-public class staff extends user{
+public class Staff extends user{
     
 
     private Map<String, course> coursesTeaching = new HashMap<>();
 
-    public staff(String name,String contactDetails) {
+    public Staff(String name,String contactDetails) {
         super(name, "Staff", contactDetails);
     }
 
