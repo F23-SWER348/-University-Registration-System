@@ -10,10 +10,10 @@ public class schedule extends course{
     private Map<String, Map<LocalTime,LocalTime>> weeklySchedule;   // Name of the day , and map to start time and end time 
     
 
-    // public schedule(String name, int credits, String faculty) {
-    //     super(name, credits, faculty);
-    //     this.weeklySchedule = new HashMap<>();
-    // }
+    public schedule(String name, int credits, String faculty) {
+        super(name, credits, faculty);
+        this.weeklySchedule = new HashMap<>();
+    }
 
     // // Additional constructor for Schedule class
     // public schedule(String name, int credits, String faculty, Map<String,  List<LocalTime>> weeklySchedule) {

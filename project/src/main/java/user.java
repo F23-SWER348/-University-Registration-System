@@ -1,12 +1,14 @@
 public abstract class user {
 String name;
 String role;
-String faculty;
+String Faculty;
+schedule schedule2;
 
-public user(String name, String role, String faculty) {
+public user(String name, String role, String Faculty) {
     this.name = name;
     this.role = role;
-    this.faculty = faculty;
+    this.Faculty = Faculty;
+    schedule2=new schedule(name, 0, Faculty)
 }
 
 // Getter methods
@@ -19,7 +21,7 @@ public String getRole() {
 }
 
 public String getFaculty() {
-    return faculty;
+    return Faculty;
 }
 
 // Setter methods
@@ -31,8 +33,8 @@ public void setRole(String role) {
     this.role = role;
 }
 
-public void setFaculty(String faculty) {
-    this.faculty = faculty;
+public void setFaculty(String Faculty) {
+    this.Faculty = Faculty;
 }
 
 //aditional method to dispaly user informations
@@ -40,12 +42,8 @@ public void displayUserInfo() {
     System.out.println("User Information:");
     System.out.println("Name: " + name);
     System.out.println("Role: " + role);
-    System.out.println("Faculty: " + faculty);
+    System.out.println("Faculty: " + Faculty);
 }
 
 
-    
-    
-
-    
 }
