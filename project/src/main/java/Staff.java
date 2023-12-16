@@ -3,15 +3,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class staff extends user{
+public class Staff extends user{
     
     
     private List<course> coursesTeaching = new ArrayList<>();
 
 
-    public staff(String name,String faculty) {
-        super(name, "Staff", faculty);
-    }
 
     // Getter methods specific to Faculty
     public List<course> getCoursesTeaching() {
