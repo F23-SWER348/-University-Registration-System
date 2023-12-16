@@ -25,15 +25,7 @@ public class semester {
         return courses;
     }
 
-//add setters
-    public void setName(String name) {
-        this.name = name;
-    }
 
-
-    public void setYear(int year) {
-        this.year = year;
-    }
 
 
     public void setCourses(Map<String, course> courses) {

@@ -1,4 +1,4 @@
-public class user {
+public abstract class user {
 String name;
 String role;
 String contactDetails;

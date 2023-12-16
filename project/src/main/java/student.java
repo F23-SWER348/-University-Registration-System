@@ -12,8 +12,8 @@ public class student extends user {
     private Map<course,Double> Grades=new HashMap<>() ;
     List<course>courses=new ArrayList<>();
 
-    public student(String name, String role, String contactDetails) {
-        super(name, role, contactDetails);
+    public student(String name,String contactDetails) {
+        super(name, "Student", contactDetails);
     }
 
     public Map<course, Double> getGrades() {
