@@ -8,9 +8,9 @@ public class Staff extends user{
     
     private List<course> coursesTeaching = new ArrayList<>();
 
-public Staff (String name,String faculty){
-super(name, "Staff", faculty);
-}
+    public Staff (String name,String faculty){
+    super(name, "Staff", faculty);
+ }
 
     // Getter methods specific to Faculty
     public List<course> getCoursesTeaching() {

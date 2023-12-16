@@ -7,8 +7,8 @@ import java.util.Optional;
 
 public class schedule extends course{
     
-    private Map<String, List<LocalTime>> weeklySchedule;
-
+    private Map<String, Map<LocalTime,LocalTime>> weeklySchedule;   // Name of the day , and map to start time and end time 
+    
 
     // public schedule(String name, int credits, String faculty) {
     //     super(name, credits, faculty);
