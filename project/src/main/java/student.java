@@ -10,7 +10,6 @@ import java.util.stream.IntStream;
 public class student extends user {
 
     private Map<course,Double> Grades=new HashMap<>() ;
-    List<course>courses=new ArrayList<>();
 
     public student(String name,String faculty) {
         super(name, "Student", faculty);
@@ -20,20 +19,14 @@ public class student extends user {
         return Grades;
     }
 
-    public List<course> getCourses() {
-        return courses;
-    }
 
     public void addGrade(course c,Double d){
      Grades.put(c, d);
     }
 
-    
-    public void addCourseForStu(course c){
-     courses.add(c);
-    }
+ 
+    public Double getAverage(){ //done
 
-    public Double getAverage(){
         // Extract the values containing grades and calculate the average
         
         Double sum = Grades.entrySet().stream().mapToDouble( e -> e.getKey().getCredits() * e.getValue()).sum();

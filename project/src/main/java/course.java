@@ -21,7 +21,6 @@ public class course {
     }
 
    
-    
     public String getName() {
         return name;
     }
