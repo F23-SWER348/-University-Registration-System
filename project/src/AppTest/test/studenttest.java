@@ -5,6 +5,30 @@ import static org.junit.jupiter.api.Assertions.*;
 public class studenttest {
 
     @Test
+    void testReadingFile() throws IOException{
+        String path = "src/Apptest/resources/words.txt";
+
+        BufferedReader reader = 
+  new BufferedReader(new FileReader("src/test/resources/studentFile.txt"));
+       assertEquals("Hello", reader.readLine());
+
+
+File file = new File(path);
+String absolutePath = file.getAbsolutePath();
+
+Scanner sc = new Scanner(file);
+String word = sc.nextLine();
+assertEquals(word, "Hello");
+
+System.out.println(absolutePath);
+
+//assertTrue(absolutePath.endsWith("src/test/resources/words.txt"));
+    }
+
+
+
+
+    @Test
     public void testGetAverage() {
         // Create a student
         student studentObj = new student("John", "Science");
