@@ -1,32 +1,43 @@
-import org.junit.jupiter.api.Test;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
-public class studenttest {
-
+public class stuTest {
+   
     @Test
-    void testReadingFile() throws IOException{
-        String path = "src/Apptest/resources/words.txt";
+    public void testStudentReadGradesFromFile() throws IOException {
+        // Get the path for the test resources directory
+        String path = "src/test/resources";
 
-        BufferedReader reader = 
-  new BufferedReader(new FileReader("src/test/resources/studentFile.txt"));
-       assertEquals("Hello", reader.readLine());
+        // Create a temporary file with sample grades in the test resources directory
+        String fileName = path + "/studentFile.txt";
+        String fileContent = "Mohammad,Science\nSwer141,90\nSwe142,80\nEnglish102,79.5";
+        Files.write(Paths.get(fileName), fileContent.getBytes());
 
+        // Create a student
+        student testStudent = new student("Mohammad", "Science");
 
-File file = new File(path);
-String absolutePath = file.getAbsolutePath();
+        // Read grades from the file in the test resources directory
+        String absolutePath = new File(path).getAbsolutePath();
+        System.out.println(absolutePath);
 
-Scanner sc = new Scanner(file);
-String word = sc.nextLine();
-assertEquals(word, "Hello");
+        assertTrue(absolutePath.endsWith("src/test/resources"));
 
-System.out.println(absolutePath);
+        testStudent.readGradesFromFile(fileName);
 
-//assertTrue(absolutePath.endsWith("src/test/resources/words.txt"));
+        // Calculate and test the average
+        assertEquals(83.17, testStudent.getAverage(), 0.01);
+
+        // Test the state
+        assertEquals("Honour", testStudent.getState());
+
+        // Clean up: Delete the temporary file
+        Files.deleteIfExists(Paths.get(fileName));
     }
-
-
-
 
     @Test
     public void testGetAverage() {
