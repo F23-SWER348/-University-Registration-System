@@ -1,6 +1,6 @@
 import static org.junit.Assert.assertEquals;
 
-public class studenttest {
+public class StudentTest {
 
     @Test
     public void testGetAverage() {
