@@ -1,4 +1,4 @@
-package main;
+
 public abstract class user {
 String name;
 String role;

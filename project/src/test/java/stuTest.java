@@ -2,12 +2,9 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
-import main.student;
 
-public class StuTest {
+public class stuTest {
 
-
-    
     @Test 
 public void testSum1Plus1(){
    
