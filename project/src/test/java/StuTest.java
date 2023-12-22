@@ -5,6 +5,7 @@ import org.junit.Test;
 import main.student;
 
 public class StuTest {
+    
     @Test 
 void testSum1Plus1(){
    
