@@ -1,3 +1,4 @@
+package main;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -7,6 +8,7 @@ import java.util.Optional;
 
 public class schedule {
  
+    
     private String dayOfWeek;
     private LocalTime startTime;
     private LocalTime endTime;
