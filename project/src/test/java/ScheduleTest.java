@@ -1,3 +1,4 @@
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -10,10 +11,9 @@ import java.util.List;
 
 import org.junit.Test;
 
-import main.schedule;
-
 public class ScheduleTest {
     private List<schedule> existingSchedules;
+    private student testStudent;
 
 
 @Test
@@ -49,4 +49,6 @@ private schedule readScheduleFromFile(String filePath) {
     return null; // Return null if there's an issue reading from the file
 }
 
+
+ 
 }
