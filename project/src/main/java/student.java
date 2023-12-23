@@ -13,11 +13,6 @@ import java.util.stream.IntStream;
 
 public class student extends user {
 
-    //test
-    public static long add(int a, int b) {
-        return a + b;
-    }
-
 
     private Map<course,Double> Grades=new HashMap<>() ;
 
