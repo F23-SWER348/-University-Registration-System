@@ -20,19 +20,23 @@ public class schedule {
     }
 
 
-    public static void createSchedule(schedule newSchedule,List<schedule> schedules) {  //done
+    public static void createSchedule(schedule newSchedule, List<schedule> schedules) {
+        // Ensure schedules list is never null
+        List<schedule> updatedSchedules = Optional.ofNullable(schedules).orElse(new ArrayList<>());
+    
         // Check for conflicts with existing schedules
-        boolean conflict = schedules.stream()
-                            .anyMatch(e -> e.getDayOfWeek().equals(newSchedule.getDayOfWeek()) &&
-                                       ((newSchedule.getStartTime().compareTo(e.getEndTime()) >= 0) ||
-                                             (newSchedule.getEndTime().compareTo(e.getStartTime()) <= 0)));
+        boolean conflict = updatedSchedules.stream()
+                .anyMatch(e -> e.getDayOfWeek().equals(newSchedule.getDayOfWeek()) &&
+                        ((newSchedule.getStartTime().compareTo(e.getEndTime()) >= 0) ||
+                                (newSchedule.getEndTime().compareTo(e.getStartTime()) <= 0)));
+    
         if (!conflict) {
-            schedules.add(newSchedule);
+            updatedSchedules.add(newSchedule);
         } else {
             System.out.println("Schedule conflict! Unable to add the schedule.");
         }
     }
-
+    
 
 
     public String getDayOfWeek() {
