@@ -10,6 +10,8 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Map;
+
+import org.junit.Before;
 import org.junit.Test;
 
 public class gradestest {
@@ -18,23 +20,40 @@ public class gradestest {
 
     @BeforeEach
    public void setUp() {
-        // Initialize test data from file
+        // Initializing test data from file
         testStudent = readStudentFromFile("src/test/resources/studentFile.txt");
     }
     @Test
     public void testGetAverage() {
         // Ensure testStudent is not null before proceeding with the test
         if (testStudent != null) {
-            // Act
             double average = testStudent.getAverage();
 
-            // Assert
-            assertEquals(3.75, average, 0.01); // Adjust the expected value as needed
+            
+            assertEquals(3.75, average, 0.01); 
         } else {
             // Print an error message or fail the test if testStudent is null
             System.err.println("testStudent is null. Test cannot be executed.");
         }
     }
+
+    @Before
+    public void setUp2() {
+        // Initialize testStudent with sample data
+        testStudent = new student("John Doe", "Engineering");
+        testStudent.readGradesFromFile("path/to/studentFile.txt");
+    }
+
+    @Test
+    public void testGetState() {
+        // Test the getState method
+        String state = testStudent.getState();
+
+        // Assert the expected state based on average grades
+        assertEquals("Probation", state);
+    }
+
+    
     private student readStudentFromFile(String filePath) {
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             String line = br.readLine();
