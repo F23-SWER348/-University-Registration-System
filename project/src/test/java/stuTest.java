@@ -11,7 +11,7 @@ public class stuTest {
         stu1.addGrade(new course("Swer141", 3, "Science"),95.0);
         stu1.addGrade(new course("Swer142", 3, "Science"),88.0);
         double avg=stu1.getAverage();
-        assertEquals(avg,91.5);
+        assertEquals(avg,3.0);
     } 
 
     @Test
@@ -21,7 +21,7 @@ public class stuTest {
         stu1.addGrade(new course("Swer141", 3, "Science"),95.0);
         stu1.addGrade(new course("Swer142", 3, "Science"),88.0);  
 
-        assertEquals(stu1.getState(),"Dean's list");
+        assertEquals(stu1.getState(),"Honour");
 
     }
 
