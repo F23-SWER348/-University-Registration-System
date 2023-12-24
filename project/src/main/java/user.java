@@ -1,3 +1,7 @@
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public abstract class user {
 String name;
@@ -9,6 +13,7 @@ public user(String name, String role, String Faculty) {
     this.role = role;
     this.Faculty = Faculty;
 }
+
 
 // Getter methods
 public String getName() {
