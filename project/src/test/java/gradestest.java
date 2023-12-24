@@ -40,7 +40,7 @@ public class gradestest {
     public void setUp2() {
         // Initialize testStudent with sample data
         testStudent = new student("John Doe", "Engineering");
-        testStudent.readGradesFromFile("path/to/studentFile.txt");
+        testStudent.readGradesFromFile("src/test/resources/studentFile.txt");
     }
 
     @Test
