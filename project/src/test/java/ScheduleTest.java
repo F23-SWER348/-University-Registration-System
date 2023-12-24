@@ -24,10 +24,8 @@ public void testCreateSchedule_NoConflict() {
     existingSchedules.add(new schedule("Monday", LocalTime.parse("09:00"), LocalTime.parse("10:30")));
     existingSchedules.add(new schedule("Wednesday", LocalTime.parse("13:00"), LocalTime.parse("14:30")));
 
-    // Act
     schedule.createSchedule(newSchedule, existingSchedules);
 
-    // Assert
     assertTrue(existingSchedules.contains(newSchedule));
 }
 
