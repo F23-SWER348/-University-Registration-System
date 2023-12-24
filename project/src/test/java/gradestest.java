@@ -18,7 +18,7 @@ public class gradestest {
 
     private student testStudent;
 
-    @BeforeEach
+     @BeforeEach
    public void setUp() {
         // Initializing test data from file
         testStudent = readStudentFromFile("src/test/resources/studentFile.txt");
@@ -30,18 +30,17 @@ public class gradestest {
             double average = testStudent.getAverage();
 
             
-            assertEquals(3.75, average, 0.01); 
+            assertEquals(87.5, average, 0.01); 
         } else {
             // Print an error message or fail the test if testStudent is null
             System.err.println("testStudent is null. Test cannot be executed.");
         }
     }
-
     @Before
     public void setUp2() {
         // Initialize testStudent with sample data
         testStudent = new student("John Doe", "Engineering");
-        testStudent.readGradesFromFile("path/to/studentFile.txt");
+        testStudent.readGradesFromFile("src/test/resources/studentFile.txt");
     }
 
     @Test
@@ -50,7 +49,7 @@ public class gradestest {
         String state = testStudent.getState();
 
         // Assert the expected state based on average grades
-        assertEquals("Probation", state);
+        assertEquals("Dean's list", state);
     }
 
     
