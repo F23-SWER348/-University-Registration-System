@@ -67,31 +67,31 @@ public void printSchedual(){
 
 
 
-//  public void readGradesFromFile(String fileName) {
-//         try ( BufferedReader br = new BufferedReader(new FileReader(fileName))) {
-//             String line;
-//             while ((line = br.readLine()) != null) {
-//                 processLine(line);
-//             }
-//         } catch (IOException e) {
-//             e.printStackTrace();
-//         }
-//     }
+ public void readGradesFromFile(String fileName) {
+        try ( BufferedReader br = new BufferedReader(new FileReader(fileName))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                processLine(line);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
-//     private void processLine(String line) {
+    private void processLine(String line) {
 
-//         String[] parts = line.split(",");
-//         if (parts.length >= 3) { // Assuming the file format is correct
-//             for (int i = 2; i < parts.length; i++) {
-//                 String[] gradeParts = parts[i].split("-");
-//                 if (gradeParts.length == 2) {
-//                     String courseName = gradeParts[0];
-//                     Double grade = Double.parseDouble(gradeParts[1]);
-//                     course courseObj = new course(courseName, 0, "DefaultFaculty"); // Adjust with appropriate values
-//                     addGrade(courseObj, grade);
-//                 }
-//             }
-//         }
-//     }
+        String[] parts = line.split(",");
+        if (parts.length >= 3) { // Assuming the file format is correct
+            for (int i = 2; i < parts.length; i++) {
+                String[] gradeParts = parts[i].split("-");
+                if (gradeParts.length == 2) {
+                    String courseName = gradeParts[0];
+                    Double grade = Double.parseDouble(gradeParts[1]);
+                    course courseObj = new course(courseName, 0, "DefaultFaculty"); // Adjust with appropriate values
+                    addGrade(courseObj, grade);
+                }
+            }
+        }
+    }
     
 }
