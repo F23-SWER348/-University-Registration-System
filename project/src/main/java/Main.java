@@ -15,7 +15,7 @@ public class Main {
         System.out.println(stu1.getState());
         
         List<String> CoursesInSemester= Arrays.asList(readSemesterFile("semesterFile","Fall",2020));
-
+   
     }
 
      public static String[] readSemesterFile(String fileName,String sem,int ye) {
