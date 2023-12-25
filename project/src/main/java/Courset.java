@@ -12,7 +12,7 @@ public class Courset {
     private List<Courset> prerequisites;
     private List<Studentt> enrolledStudents;
 
-    public Courset(String name, int credits) {
+    public Courset(String name, int credits,Faculty faculty) {
         this.name = name;
         this.credits = credits;
         this.faculty = new ArrayList<>();
@@ -34,7 +34,7 @@ public class Courset {
     }
 
     public void addFaculty(Faculty newFa){
-        faculty.add(newFa);
+       faculty.add(newFa);
     }
 
     public List<WeeklyMeeting> getWeeklyMeetings() {
@@ -49,17 +49,7 @@ public class Courset {
         return enrolledStudents;
     }
 
-    // Method to add a weekly meeting to the course
-    public void addWeeklyMeeting(WeeklyMeeting meeting) {
-        // Validate that the faculty does not have a conflicting meeting time
-        if (isFacultyAvailable(meeting.getDayOfWeek(), meeting.getStartTime(), meeting.getEndTime())) {
-            weeklyMeetings.add(meeting);
-            System.out.println("Weekly meeting added successfully.");
-        } else {
-            System.out.println("Faculty has a conflicting meeting at the same time.");
-            // Handle the conflict as needed (throw an exception, show a message, etc.)
-        }
-    }
+
 
     // Method to add a prerequisite course
     public void addPrerequisite(Courset prerequisite) {
@@ -77,16 +67,31 @@ public class Courset {
         }
     }
 
-    // Check if the faculty is available during the specified time
-    private boolean isFacultyAvailable(DayOfWeek dayOfWeek, LocalTime startTime, LocalTime endTime) {
-        return weeklyMeetings.stream()
-                .noneMatch(meeting ->
-                        meeting.getDayOfWeek() == dayOfWeek &&
-                        !(endTime.isBefore(meeting.getStartTime()) || startTime.isAfter(meeting.getEndTime())));
-    }
 
     // Check if the prerequisites for the course are satisfied by the student
     private boolean prerequisitesSatisfied(Studentt student) {
         return prerequisites.stream().allMatch(student::hasCompletedCourse);
     }
+
+
+   // od to add a weekly meeting to the course
+    public void addWeeklyMeeting(WeeklyMeeting meeting) {
+        // Validate that at least one faculty is available during the meeting time
+        if (isAnyFacultyAvailable(meeting.getDayOfWeek(), meeting.getStartTime(), meeting.getEndTime())) {
+            weeklyMeetings.add(meeting);
+            System.out.println("Weekly meeting added successfully.");
+        } else {
+            System.out.println("No available faculty during the specified meeting time.");
+            // Handle the situation where no faculty is available as needed
+        }
+    }
+
+
+    // Check if at least one faculty is available during the specified time
+    private boolean isAnyFacultyAvailable(DayOfWeek dayOfWeek, LocalTime startTime, LocalTime endTime) {
+        return faculty.stream().anyMatch(faculty ->
+                faculty.isAvailable(dayOfWeek, startTime, endTime));
+    }
+
+
 }

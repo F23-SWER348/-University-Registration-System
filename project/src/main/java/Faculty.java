@@ -1,9 +1,13 @@
 
+import java.time.DayOfWeek;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Faculty extends Person {
+
     private List<Courset> teachingCourses;
+    private List<WeeklyMeeting> facultyMeetings;
 
     public Faculty(String name, String contactDetails) {
         super(name, contactDetails);
@@ -13,6 +17,20 @@ public class Faculty extends Person {
     public List<Courset> getTeachingCourses() {
         return teachingCourses;
     }
+
+    
+    // Check if the faculty is available during the specified time
+    public boolean isAvailable(DayOfWeek dayOfWeek, LocalTime startTime, LocalTime endTime) {
+        // Implement the logic to check faculty availability here
+
+        // For simplicity, let's assume the faculty is always available if they have no conflicting meetings
+        return facultyMeetings.stream()
+                .noneMatch(meeting ->
+                        meeting.getDayOfWeek() == dayOfWeek &&
+                                !(endTime.isBefore(meeting.getStartTime()) || startTime.isAfter(meeting.getEndTime()))
+                );
+    }
+
 
     // Method to add a course to the faculty's teaching schedule
     public void addTeachingCourse(Courset course) {
