@@ -4,17 +4,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Courset {
+
     private String name;
     private int credits;
-    private Faculty faculty;
+    private List<Faculty> faculty;
     private List<WeeklyMeeting> weeklyMeetings;
     private List<Courset> prerequisites;
     private List<Studentt> enrolledStudents;
 
-    public Courset(String name, int credits, Faculty faculty) {
+    public Courset(String name, int credits) {
         this.name = name;
         this.credits = credits;
-        this.faculty = faculty;
+        this.faculty = new ArrayList<>();
         this.weeklyMeetings = new ArrayList<>();
         this.prerequisites = new ArrayList<>();
         this.enrolledStudents = new ArrayList<>();
@@ -28,12 +29,12 @@ public class Courset {
         return credits;
     }
 
-    public Faculty getFaculty() {
+    public List<Faculty> getFaculty() {
         return faculty;
     }
 
-    public void setFaculty(Faculty faculty) {
-        this.faculty = faculty;
+    public void addFaculty(Faculty newFa){
+        faculty.add(newFa);
     }
 
     public List<WeeklyMeeting> getWeeklyMeetings() {
