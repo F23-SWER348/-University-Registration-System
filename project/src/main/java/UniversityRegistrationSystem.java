@@ -101,7 +101,7 @@ public class UniversityRegistrationSystem {
     // Method to enter grades for a student
     public void enterGrades(Studentt student, Courset course, int grade) {
         if (student != null && course != null) {
-            course.enterGrades(student, course, grade);
+            enterGrades(student, course, grade);
             // Additional logic can be added based on your requirements
         }
     }
