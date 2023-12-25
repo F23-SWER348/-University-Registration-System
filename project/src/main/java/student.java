@@ -15,7 +15,7 @@ import java.util.stream.IntStream;
 
 public class student extends user {
 
-/////
+
     private Map<course,Double> Grades=new HashMap<>() ;
     Map<course,schedule> schSem=new HashMap<>() ;
 
