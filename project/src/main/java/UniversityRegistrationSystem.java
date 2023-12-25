@@ -2,10 +2,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UniversityRegistrationSystem {
-    private List<student> students;
-    private List<Staff> facultyMembers;
-    private List<semester> semesters;
-    private List<course> courses;
+    private List<Studentt> students;
+    private List<Faculty> facultyMembers;
+    private List<Semestert> semesters;
+    private List<Courset> courses;
 
     public UniversityRegistrationSystem() {
         this.students = new ArrayList<>();
@@ -14,39 +14,39 @@ public class UniversityRegistrationSystem {
         this.courses = new ArrayList<>();
     }
 
-    public List<student> getStudents() {
+    public List<Studentt> getStudents() {
         return students;
     }
 
-    public List<Staff> getFacultyMembers() {
+    public List<Faculty> getFacultyMembers() {
         return facultyMembers;
     }
 
-    public List<semester> getSemesters() {
+    public List<Semestert> getSemesters() {
         return semesters;
     }
 
-    public List<course> getCourses() {
+    public List<Courset> getCourses() {
         return courses;
     }
 
     // Method to add a new student
-    public void addStudent(student student) {
+    public void addStudent(Studentt student) {
         students.add(student);
     }
 
     // Method to add a new faculty member
-    public void addFacultyMember(Staff faculty) {
+    public void addFacultyMember(Faculty faculty) {
         facultyMembers.add(faculty);
     }
 
     // Method to add a new semester
-    public void addSemester(semester semester) {
+    public void addSemester(Semestert semester) {
         semesters.add(semester);
     }
 
     // Method to add a new course with conflict checking
-    public void addCourse(course newCourse) {
+    public void addCourse(Courset newCourse) {
         if (!hasScheduleConflict(newCourse)) {
             courses.add(newCourse);
             System.out.println("Course added successfully.");
@@ -57,8 +57,8 @@ public class UniversityRegistrationSystem {
     }
 
     // Check if there is a schedule conflict with the new course
-    private boolean hasScheduleConflict(course newCourse) {
-        for (course existingCourse : courses) {
+    private boolean hasScheduleConflict(Courset newCourse) {
+        for (Courset existingCourse : courses) {
             if (haveConflictingMeetings(existingCourse, newCourse)) {
                 return true;
             }
@@ -67,7 +67,7 @@ public class UniversityRegistrationSystem {
     }
 
     // Check if two courses have conflicting meetings
-    private boolean haveConflictingMeetings(course course1, course course2) {
+    private boolean haveConflictingMeetings(Courset course1, Courset course2) {
         for (WeeklyMeeting meeting1 : course1.getWeeklyMeetings()) {
             for (WeeklyMeeting meeting2 : course2.getWeeklyMeetings()) {
                 if (meeting1.getDayOfWeek() == meeting2.getDayOfWeek() &&
@@ -82,13 +82,13 @@ public class UniversityRegistrationSystem {
 
     // Method to browse available courses
     public void browseCourses() {
-        for (course course : courses) {
+        for (Courset course : courses) {
             System.out.println(course.getName() + " - " + course.getCredits() + " credits");
         }
     }
 
     // Method to register a student for a class
-    public void registerStudentForClass(student student, course course) {
+    public void registerStudentForClass(Studentt student, Courset course) {
         if (course != null && student != null && course.getPrerequisites().stream().allMatch(student::hasCompletedCourse)) {
             course.enroll(student);
             System.out.println(student.getName() + " successfully registered for " + course.getName());
@@ -99,7 +99,7 @@ public class UniversityRegistrationSystem {
     }
 
     // Method to enter grades for a student
-    public void enterGrades(student student, course course, int grade) {
+    public void enterGrades(Studentt student, Courset course, int grade) {
         if (student != null && course != null) {
             course.enterGrades(student, course, grade);
             // Additional logic can be added based on your requirements
