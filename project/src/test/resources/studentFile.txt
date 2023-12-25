@@ -1,3 +1,3 @@
-John Doe,Engineering,Math-3.5,Physics-4.0
-Jane Smith,Computer Science,Programming-4.0,Data Structures-3.7
-Bob Johnson,Physics,Quantum Mechanics-4.0,Thermodynamics-3.5
+Ali,Engineering,Math-85,Physics-90
+Malik,Computer Science,Programming-90,Data Structures-88
+Lenn,Physics,Quantum Mechanics-95,Thermodynamics-89
