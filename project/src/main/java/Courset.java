@@ -90,8 +90,7 @@ public class Courset {
         return prerequisites.stream().allMatch(student::hasCompletedCourse);
     }
 
-    // Method to set the credits for the course
-    public void setCredits(int credits) {
-        this.credits = credits;
+    public void setCredits(int Credits) {
+        this.credits=Credits;
     }
 }
