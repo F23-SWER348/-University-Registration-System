@@ -23,14 +23,14 @@ public class gradestest {
         // Initializing test data from file
         testStudent = readStudentFromFile("src/test/resources/studentFile.txt");
     }
+
     @Test
     public void testGetAverage() {
         // Ensure testStudent is not null before proceeding with the test
         if (testStudent != null) {
-            double average = testStudent.getAverage();
-
-            
+            double average = testStudent.getAverage();         
             assertEquals(87.5, average, 0.01); 
+            
         } else {
             // Print an error message or fail the test if testStudent is null
             System.err.println("testStudent is null. Test cannot be executed.");
