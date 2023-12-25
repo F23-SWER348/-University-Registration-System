@@ -1,17 +1,19 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Studentt extends Person {
-    private List<Courset> completedCourses;
+    private Map<Courset,Double> completedCourses;
     private List<Courset> currentCourses;
 
     public Studentt(String name, String contactDetails) {
         super(name, contactDetails);
-        this.completedCourses = new ArrayList<>();
+        this.completedCourses = new HashMap<>();
         this.currentCourses = new ArrayList<>();
     }
 
-    public List<Courset> getCompletedCourses() {
+    public Map<Courset,Double> getCompletedCourses() {
         return completedCourses;
     }
 
@@ -21,13 +23,13 @@ public class Studentt extends Person {
 
     // Method to check if the student has completed a specific course
     public boolean hasCompletedCourse(Courset course) {
-        return completedCourses.contains(course);
+        return completedCourses.containsKey(course);
     }
 
     // Method to mark a course as completed for the student
-    public void completeCourse(Courset course) {
-        if (!completedCourses.contains(course)) {
-            completedCourses.add(course);
+    public void completeCourse(Courset course,Double grade) {
+        if (!completedCourses.containsKey(course)) {
+            completedCourses.put(course,grade);
             System.out.println(name + " completed the course: " + course.getName());
         } else {
             System.out.println(name + " has already completed the course: " + course.getName());
@@ -56,4 +58,22 @@ public class Studentt extends Person {
             // Handle the situation where the student is not enrolled in the course
         }
     }
+
+     // Method to print the student's weekly schedule
+     public void printWeeklySchedule() {
+        System.out.println("Weekly Schedule for " + getName() + ":");
+        for (Courset course : currentCourses) {
+            System.out.println("Course: " + course.getName());
+            List<WeeklyMeeting> courseSchedule = course.getWeeklyMeetings();
+            for (WeeklyMeeting meeting : courseSchedule) {
+                System.out.println("Day: " + meeting.getDayOfWeek() +
+                        ", Time: " + meeting.getStartTime() + " - " + meeting.getEndTime());
+            }
+            System.out.println("-------------------------------");
+        }
+    }
+
+
+
+
 }

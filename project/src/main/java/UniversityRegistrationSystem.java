@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UniversityRegistrationSystem {
+
     private List<Studentt> students;
     private List<Faculty> facultyMembers;
     private List<Semestert> semesters;
@@ -98,11 +99,5 @@ public class UniversityRegistrationSystem {
         }
     }
 
-    // Method to enter grades for a student
-    public void enterGrades(Studentt student, Courset course, int grade) {
-        if (student != null && course != null) {
-            enterGrades(student, course, grade);
-            // Additional logic can be added based on your requirements
-        }
-    }
+
 }
