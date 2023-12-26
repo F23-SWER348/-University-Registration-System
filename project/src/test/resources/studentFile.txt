@@ -1,3 +1,0 @@
-Ali,Engineering,Math-85,Physics-90
-Malik,Computer Science,Programming-90,Data Structures-88
-Lenn,Physics,Quantum Mechanics-95,Thermodynamics-89

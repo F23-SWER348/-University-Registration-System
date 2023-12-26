@@ -1,0 +1,25 @@
+# Test 1
+dayOfWeek=MONDAY
+startTime=10:00
+endTime=11:00
+
+dayOfWeek=WEDNESDAY
+startTime=13:30
+endTime=14:30
+
+dayOfWeek=FRIDAY
+startTime=09:00
+endTime=10:30
+
+# Test 2
+dayOfWeek=MONDAY
+startTime=10:30
+endTime=11:30
+
+dayOfWeek=TUESDAY
+startTime=15:00
+endTime=16:30
+
+dayOfWeek=THURSDAY
+startTime=12:00
+endTime=13:30

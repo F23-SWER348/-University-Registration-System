@@ -75,7 +75,7 @@ public class Courset {
             System.out.println("Enrollment unsuccessful. Prerequisites not met or already enrolled.");
             // Handle the prerequisites not met or already enrolled situation as needed
         }
-    }
+    }   
 
     // Check if the faculty is available during the specified time
     private boolean isFacultyAvailable(DayOfWeek dayOfWeek, LocalTime startTime, LocalTime endTime) {
