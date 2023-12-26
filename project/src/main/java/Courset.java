@@ -89,4 +89,7 @@ public class Courset {
     private boolean prerequisitesSatisfied(Studentt student) {
         return prerequisites.stream().allMatch(student::hasCompletedCourse);
     }
+
+    public void setCredits(int Credits) {
+    }
 }
