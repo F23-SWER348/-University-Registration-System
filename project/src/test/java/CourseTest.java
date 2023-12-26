@@ -11,7 +11,7 @@ import java.time.DayOfWeek;
 import java.time.LocalTime;
 import java.util.List;
 
-public class cous {
+public class CourseTest {
 
     private static final String TEST_VALUES = "src/test/resources/coursefile.txt";
 //For addWeeklyMeeting method
@@ -43,6 +43,85 @@ public class cous {
         // Expecting conflict and no addition
         course.addWeeklyMeeting(conflictingMeeting);
         assertFalse(course.getWeeklyMeetings().contains(conflictingMeeting));
+    }
+
+
+
+     private Object[] readCourseAndMeetingFromTestValues(int testNumber) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(TEST_VALUES))) {
+            String line;
+            Courset course = null;
+            Faculty faculty = null;
+            WeeklyMeeting meeting = null;
+
+            while ((line = reader.readLine()) != null) {
+                if (line.startsWith("# Test " + testNumber)) {
+                    Object[] objects = readCourseAndMeeting(reader);
+                    course = (Courset) objects[0];
+                    faculty = (Faculty) objects[1];
+                    meeting = (WeeklyMeeting) objects[2];
+                    break;
+                }
+            }
+
+            if (course != null && faculty != null && meeting != null) {
+                return new Object[]{course, faculty, meeting};
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        throw new RuntimeException("Test values not found for Test " + testNumber);
+    }
+
+     private Object[] readCourseAndMeeting(BufferedReader reader) throws IOException {
+        Courset course = null;
+        Faculty faculty = null;
+        DayOfWeek dayOfWeek = null;
+        LocalTime startTime = null;
+        LocalTime endTime = null;
+
+        String line;
+        while ((line = reader.readLine()) != null && !line.isEmpty()) {
+            String[] parts = line.split("=");
+            if (parts.length == 2) {
+                String key = parts[0].trim();
+                String value = parts[1].trim();
+                switch (key) {
+                    case "courseName":
+                        course = new Courset(value, 0);
+                        break;
+                    case "credits":
+                        course.setCredits(Integer.parseInt(value));
+                        break;
+                    case "facultyName":
+                        faculty = new Faculty(value, null);
+                        break;
+                    case "facultyContactDetails":
+                        if (faculty != null) {
+                            faculty.setContactDetails(value);
+                            course.addFaculty(faculty);
+                        }
+                        break;
+                    case "dayOfWeek":
+                        dayOfWeek = DayOfWeek.valueOf(value);
+                        break;
+                    case "startTime":
+                        startTime = LocalTime.parse(value);
+                        break;
+                    case "endTime":
+                        endTime = LocalTime.parse(value);
+                        break;
+                }
+            }
+        }
+
+        if (course != null && faculty != null && dayOfWeek != null && startTime != null && endTime != null) {
+            WeeklyMeeting meeting = new WeeklyMeeting(dayOfWeek, startTime, endTime);
+            return new Object[]{course, faculty, meeting};
+        }
+
+        throw new RuntimeException("Incomplete data for reading course and meeting.");
     }
 //////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -108,36 +187,6 @@ public class cous {
             fail("IOException occurred during test");
         }
     }
-
-    private Object[] readCourseAndMeetingFromTestValues(int testNumber) {
-        try (BufferedReader reader = new BufferedReader(new FileReader(TEST_VALUES))) {
-            String line;
-            Courset course = null;
-            Faculty faculty = null;
-            WeeklyMeeting meeting = null;
-
-            while ((line = reader.readLine()) != null) {
-                if (line.startsWith("# Test " + testNumber)) {
-                    Object[] objects = readCourseAndMeeting(reader);
-                    course = (Courset) objects[0];
-                    faculty = (Faculty) objects[1];
-                    meeting = (WeeklyMeeting) objects[2];
-                    break;
-                }
-            }
-
-            if (course != null && faculty != null && meeting != null) {
-                return new Object[]{course, faculty, meeting};
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        throw new RuntimeException("Test values not found for Test " + testNumber);
-    }
-
-
-
     private Courset readCourse(BufferedReader reader) throws IOException {
         String courseName = null;
         int credits = 0;
@@ -180,55 +229,5 @@ public class cous {
         }
 
         return new Courset(courseName, credits);
-    }
-
-    private Object[] readCourseAndMeeting(BufferedReader reader) throws IOException {
-        Courset course = null;
-        Faculty faculty = null;
-        DayOfWeek dayOfWeek = null;
-        LocalTime startTime = null;
-        LocalTime endTime = null;
-
-        String line;
-        while ((line = reader.readLine()) != null && !line.isEmpty()) {
-            String[] parts = line.split("=");
-            if (parts.length == 2) {
-                String key = parts[0].trim();
-                String value = parts[1].trim();
-                switch (key) {
-                    case "courseName":
-                        course = new Courset(value, 0);
-                        break;
-                    case "credits":
-                        course.setCredits(Integer.parseInt(value));
-                        break;
-                    case "facultyName":
-                        faculty = new Faculty(value, null);
-                        break;
-                    case "facultyContactDetails":
-                        if (faculty != null) {
-                            faculty.setContactDetails(value);
-                            course.addFaculty(faculty);
-                        }
-                        break;
-                    case "dayOfWeek":
-                        dayOfWeek = DayOfWeek.valueOf(value);
-                        break;
-                    case "startTime":
-                        startTime = LocalTime.parse(value);
-                        break;
-                    case "endTime":
-                        endTime = LocalTime.parse(value);
-                        break;
-                }
-            }
-        }
-
-        if (course != null && faculty != null && dayOfWeek != null && startTime != null && endTime != null) {
-            WeeklyMeeting meeting = new WeeklyMeeting(dayOfWeek, startTime, endTime);
-            return new Object[]{course, faculty, meeting};
-        }
-
-        throw new RuntimeException("Incomplete data for reading course and meeting.");
-    }
+    } 
 }
