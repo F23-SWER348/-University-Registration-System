@@ -58,7 +58,7 @@ public class UniversityRegistrationSystem {
     }
 
     // Check if there is a schedule conflict with the new course
-    private boolean hasScheduleConflict(Courset newCourse) {
+    public boolean hasScheduleConflict(Courset newCourse) {
         for (Courset existingCourse : courses) {
             if (haveConflictingMeetings(existingCourse, newCourse)) {
                 return true;
