@@ -5,6 +5,7 @@ import java.util.List;
 
 public class Courset {
 
+ 
     private String name;
     private int credits;
     private List<Faculty> faculty;
@@ -34,7 +35,7 @@ public class Courset {
     }
 
     public void addFaculty(Faculty newFa){
-       faculty.add(newFa);
+        faculty.add(newFa);
     }
 
     public List<WeeklyMeeting> getWeeklyMeetings() {
@@ -49,7 +50,17 @@ public class Courset {
         return enrolledStudents;
     }
 
-
+    // Method to add a weekly meeting to the course
+    public void addWeeklyMeeting(WeeklyMeeting meeting) {
+        // Validate that the faculty does not have a conflicting meeting time
+        if (isFacultyAvailable(meeting.getDayOfWeek(), meeting.getStartTime(), meeting.getEndTime())) {
+            weeklyMeetings.add(meeting);
+            System.out.println("Weekly meeting added successfully.");
+        } else {
+            System.out.println("Faculty has a conflicting meeting at the same time.");
+            // Handle the conflict as needed (throw an exception, show a message, etc.)
+        }
+    }
 
     // Method to add a prerequisite course
     public void addPrerequisite(Courset prerequisite) {
@@ -67,10 +78,21 @@ public class Courset {
         }
     }   
 
+    // Check if the faculty is available during the specified time
+    private boolean isFacultyAvailable(DayOfWeek dayOfWeek, LocalTime startTime, LocalTime endTime) {
+        return weeklyMeetings.stream()
+                .noneMatch(meeting ->
+                        meeting.getDayOfWeek() == dayOfWeek &&
+                        !(endTime.isBefore(meeting.getStartTime()) || startTime.isAfter(meeting.getEndTime())));
+    }
 
     // Check if the prerequisites for the course are satisfied by the student
     private boolean prerequisitesSatisfied(Studentt student) {
         return prerequisites.stream().allMatch(student::hasCompletedCourse);
     }
 
+    public void setCredits(int Credits) {
+        this.credits=Credits;
+    }
 
+}
