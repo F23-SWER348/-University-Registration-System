@@ -12,7 +12,7 @@ public class Courset {
     private List<Courset> prerequisites;
     private List<Studentt> enrolledStudents;
 
-    public Courset(String name, int credits,Faculty faculty) {
+    public Courset(String name, int credits) {
         this.name = name;
         this.credits = credits;
         this.faculty = new ArrayList<>();

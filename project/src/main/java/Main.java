@@ -8,14 +8,10 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
 
-        student stu1 = new student("John", "Science");
-        stu1.addGrade(new course("Swer141", 3, "Science"),95.0);
-        stu1.addGrade(new course("Swer142", 3, "Science"),88.0);   
-        System.out.println(stu1.getAverage());
-        System.out.println(stu1.getState());
-        
-        List<String> CoursesInSemester= Arrays.asList(readSemesterFile("semesterFile","Fall",2020));
-   
+    Faculty faculty1=new Faculty("Mohammad", "klklkl@gmail.com");
+    Courset course1=new Courset("Swer142", 3);
+    Studentt stu1=new Studentt("Zainab", "asfdafsgh@gmail.com");
+    
     }
 
      public static String[] readSemesterFile(String fileName,String sem,int ye) {
