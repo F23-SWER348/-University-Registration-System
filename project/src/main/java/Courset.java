@@ -65,7 +65,7 @@ public class Courset {
             System.out.println("Enrollment unsuccessful. Prerequisites not met or already enrolled.");
             // Handle the prerequisites not met or already enrolled situation as needed
         }
-    }
+    }   
 
 
     // Check if the prerequisites for the course are satisfied by the student
@@ -74,24 +74,3 @@ public class Courset {
     }
 
 
-   // od to add a weekly meeting to the course
-    public void addWeeklyMeeting(WeeklyMeeting meeting) {
-        // Validate that at least one faculty is available during the meeting time
-        if (isAnyFacultyAvailable(meeting.getDayOfWeek(), meeting.getStartTime(), meeting.getEndTime())) {
-            weeklyMeetings.add(meeting);
-            System.out.println("Weekly meeting added successfully.");
-        } else {
-            System.out.println("No available faculty during the specified meeting time.");
-            // Handle the situation where no faculty is available as needed
-        }
-    }
-
-
-    // Check if at least one faculty is available during the specified time
-    private boolean isAnyFacultyAvailable(DayOfWeek dayOfWeek, LocalTime startTime, LocalTime endTime) {
-        return faculty.stream().anyMatch(faculty ->
-                faculty.isAvailable(dayOfWeek, startTime, endTime));
-    }
-
-
-}
