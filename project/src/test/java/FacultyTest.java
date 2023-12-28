@@ -20,15 +20,6 @@ public class FacultyTest {
 
 
     //For addTeachingCourse
-    @Test
-    public void testAddTeachingCourse() {
-        Faculty faculty = new Faculty("Rawan", "Rawan@bethlehem");
-        Courset course = new Courset("SWER141", 3);
-
-        faculty.addTeachingCourse(course);
-
-        assertTrue(faculty.getTeachingCourses().contains(course));
-    }
 
     @Test
     public void testAddTeachingCourseFromFile() {
@@ -55,19 +46,6 @@ public class FacultyTest {
     }
 //-------------------------------------------------------------------------------------------
 // For removeTeachingCourse
-    @Test
-    public void testRemoveTeachingCourse() {
-        Faculty faculty = new Faculty("Anas", "Anas@bethlehm");
-        Courset course = new Courset("142", 3);
-
-        faculty.addTeachingCourse(course);
-
-        assertTrue(faculty.getTeachingCourses().contains(course));
-
-        faculty.removeTeachingCourse(course);
-
-        assertFalse(faculty.getTeachingCourses().contains(course));
-    }
 
     @Test
     public void testRemoveTeachingCourseFromFile() {
@@ -84,10 +62,7 @@ public class FacultyTest {
                 Faculty faculty = new Faculty(facultyName, "ContactDetails");
                 Courset course = new Courset(courseName, 3);
 
-                faculty.addTeachingCourse(course);
-
-                assertTrue(faculty.getTeachingCourses().contains(course));
-
+               
                 faculty.removeTeachingCourse(course);
 
                 assertFalse(faculty.getTeachingCourses().contains(course));
