@@ -19,27 +19,39 @@ public class SemesterTest {
 
     //For addCourse method 
     @Test
-public void testAddCourse() {
-    try (BufferedReader reader = new BufferedReader(new FileReader(TEST_VALUES))) {
-        reader.lines()
-              .map(line -> line.split(","))
-              .forEach(data -> {
-                  String semesterName = data[0];
-                  int year = Integer.parseInt(data[1]);
-                  Semestert semester = new Semestert(semesterName, year);
+    public void testAddCourse() {
+        try (BufferedReader reader = new BufferedReader(new FileReader(TEST_VALUES))) {
+            String line;
+            Semestert semester = null;
 
-                  String courseName = data[2];
-                  int credits = Integer.parseInt(data[3]);
-                  Courset course = new Courset(courseName, credits);
+            while ((line = reader.readLine()) != null) {
+                String[] data = line.split(",");
+                
+                // If semester is not initialized or semester name changes, create a new semester
+                if (semester == null || !data[0].equals(semester.getName())) {
+                    String semesterName = data[0];
+                    int year = Integer.parseInt(data[1]);
+                    semester = new Semestert(semesterName, year);
+                }
 
-                  semester.addCourse(course);
-                  assertTrue(semester.getCourses().contains(course));
-              });
-    } catch (IOException e) {
-        e.printStackTrace();
+                // Read course  information
+                String courseName = data[2];
+                int credits = Integer.parseInt(data[3]);
+
+                Courset course = new Courset(courseName, credits);
+
+                // Add course using the addCourse method
+                semester.addCourse(course);
+
+                // Assert that the course is added to the semester
+                assertTrue(semester.getCourses().contains(course));
+
+                
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
-}
-
     //-------------------------------------------------------------------------
     @Test
     public void testGetCourseScheduleFromFile() throws IOException {
@@ -63,7 +75,7 @@ public void testAddCourse() {
                     
                     DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("H:mm");
                     LocalTime startTime = LocalTime.parse(values[3], timeFormatter);           
-                             LocalTime endTime = LocalTime.parse(values[4]);
+                    LocalTime endTime = LocalTime.parse(values[4]);
 
 
                     Courset course = new Courset(courseName, credits);

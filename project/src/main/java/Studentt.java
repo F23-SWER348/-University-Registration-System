@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 public class Studentt extends Person {
     private Map<Courset,Double> completedCourses;
@@ -23,8 +24,9 @@ public class Studentt extends Person {
 
     // Method to check if the student has completed a specific course
     public boolean hasCompletedCourse(Courset course) {
-        return completedCourses.containsKey(course);
+        return  Optional.ofNullable(completedCourses.get(course)).isPresent();
     }
+   
 
     // Method to mark a course as completed for the student
     public void completeCourse(Courset course,Double grade) {
@@ -72,8 +74,6 @@ public void printWeeklySchedule() {
                 System.out.println("-------------------------------");
             });
 }
-
-
 
 
     // Method to add a new course with conflict checking
