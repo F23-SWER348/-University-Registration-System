@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,8 +11,8 @@ public class Studentt extends Person {
 
     public Studentt(String name, String contactDetails) {
         super(name, contactDetails);
-        this.completedCourses = new HashMap<>();
-        this.currentCourses = new ArrayList<>();
+            this.completedCourses = Collections.synchronizedMap(new HashMap<>());
+        this.currentCourses = Collections.synchronizedList(new ArrayList<>());
     }
 
     public Map<Courset,Double> getCompletedCourses() {
