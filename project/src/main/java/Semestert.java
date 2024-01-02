@@ -39,7 +39,7 @@ public class Semestert {
     }
 
     // Method to get the course schedule for the semester
-    public List<WeeklyMeeting> getCourseSchedule() {
+    public  List<WeeklyMeeting> getCourseSchedule() {
         List<WeeklyMeeting> schedule = new ArrayList<>();
         for (Courset course : courses) {
             schedule.addAll(course.getWeeklyMeetings());
