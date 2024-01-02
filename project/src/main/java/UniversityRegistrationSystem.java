@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class UniversityRegistrationSystem {
@@ -9,10 +10,10 @@ public class UniversityRegistrationSystem {
     private List<Courset> courses;
 
     public UniversityRegistrationSystem() {
-        this.students = new ArrayList<>();
-        this.facultyMembers = new ArrayList<>();
-        this.semesters = new ArrayList<>();
-        this.courses = new ArrayList<>();
+        this.students = Collections.synchronizedList(new ArrayList<>());
+        this.facultyMembers = Collections.synchronizedList(new ArrayList<>());
+        this.semesters = Collections.synchronizedList(new ArrayList<>());
+        this.courses = Collections.synchronizedList(new ArrayList<>());
     }
 
     public List<Studentt> getStudents() {
