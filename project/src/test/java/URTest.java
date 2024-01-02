@@ -30,40 +30,40 @@ public class URTest {
     public void setUp() {
         registrationSystem = new UniversityRegistrationSystem();
     }
-
     @Test
-public void testAddCourse() {
-    try (BufferedReader reader = new BufferedReader(new FileReader("src/test/resources/testDataWithoutConflict.txt"))) {
-        String line;
-        while ((line = reader.readLine()) != null) {
-            String[] courseData = line.split(",");
-            String courseName = courseData[0];
-            int credits = Integer.parseInt(courseData[1]);
-            DayOfWeek dayOfWeek = DayOfWeek.valueOf(courseData[2].toUpperCase());
-            LocalTime startTime = LocalTime.parse(courseData[3]);
-            LocalTime endTime = LocalTime.parse(courseData[4]);
-
-            Courset newCourse = new Courset(courseName, credits);
-            WeeklyMeeting meeting = new WeeklyMeeting(dayOfWeek, startTime, endTime);
-            newCourse.addWeeklyMeeting(meeting);
-
-            registrationSystem.addCourse(newCourse);
-        }
-    } catch (IOException e) {
-        e.printStackTrace();
-    }
-
-    assertFalse(registrationSystem.hasScheduleConflict(new Courset("SwER141", 3))); // Test for no conflict
-
-    assertFalse(registrationSystem.hasScheduleConflict(new Courset("Biology", 3))); // Test for no conflict
+    public void testAddCourse() {
+        try (BufferedReader reader = new BufferedReader(new FileReader("src/test/resources/testDataWithoutConflict.txt"))) {
+            reader.lines()
+                  .map(line -> line.split(","))
+                  .forEach(courseData -> {
+                      String courseName = courseData[0];
+                      int credits = Integer.parseInt(courseData[1]);
+                      DayOfWeek dayOfWeek = DayOfWeek.valueOf(courseData[2].toUpperCase());
+                      LocalTime startTime = LocalTime.parse(courseData[3]);
+                      LocalTime endTime = LocalTime.parse(courseData[4]);
     
-    // Debugging Statements
-    Courset conflictCourse = new Courset("ConflictCourse", 3);
-    WeeklyMeeting conflictMeeting = new WeeklyMeeting(DayOfWeek.MONDAY, LocalTime.parse("11:00"), LocalTime.parse("13:00"));
-    conflictCourse.addWeeklyMeeting(conflictMeeting);
-
-    assertTrue(registrationSystem.hasScheduleConflict(conflictCourse)); // Test for conflict
-}
+                      Courset newCourse = new Courset(courseName, credits);
+                      WeeklyMeeting meeting = new WeeklyMeeting(dayOfWeek, startTime, endTime);
+                      newCourse.addWeeklyMeeting(meeting);
+    
+                      registrationSystem.addCourse(newCourse);
+                  });
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    
+        assertFalse(registrationSystem.hasScheduleConflict(new Courset("SwER141", 3))); // Test for no conflict
+    
+        assertFalse(registrationSystem.hasScheduleConflict(new Courset("Biology", 3))); // Test for no conflict
+        
+        // Debugging Statements
+        Courset conflictCourse = new Courset("ConflictCourse", 3);
+        WeeklyMeeting conflictMeeting = new WeeklyMeeting(DayOfWeek.MONDAY, LocalTime.parse("11:00"), LocalTime.parse("13:00"));
+        conflictCourse.addWeeklyMeeting(conflictMeeting);
+    
+        assertTrue(registrationSystem.hasScheduleConflict(conflictCourse)); // Test for conflict
+    }
+    
 //---------------------------------------------------------------------
 //For browseCourses method 
 
@@ -101,7 +101,7 @@ public void testAddCourse() {
              .map(parts -> new Courset(parts[0].trim(), Integer.parseInt(parts[1].trim())))
              .forEach(registrationSystem::addCourse);
     }
-
+    
 //--------------------------------------------------------------------------
 //For registerStudentForClass method
 @Before
@@ -149,34 +149,34 @@ public void testAddCourse() {
     }
 
     @Test
-public void testAddStudentFromFile() {
-    try (BufferedReader reader = new BufferedReader(new FileReader("src/test/resources/student.txt"))) {
-        String line;
-        while ((line = reader.readLine()) != null) {
-            String[] data = line.split(",");
-            String studentName = data[0].trim();
-            String studentEmail = data[1].trim();
-            String courseName = data[2].trim();
-
-            // Create Studentt object
-            Studentt student = new Studentt(studentName, studentEmail);
-            registrationSystem.addStudent(student);
-            System.out.println("This student has been added: " + student.getName() + " - " + student.getContactDetails());
-
-            // Verify that the student is added correctly
-            assertTrue(registrationSystem.getStudents().contains(student));
+    public void testAddStudentFromFile() {
+        try (BufferedReader reader = new BufferedReader(new FileReader("src/test/resources/student.txt"))) {
+            reader.lines()
+                  .map(line -> line.split(","))
+                  .forEach(data -> {
+                      String studentName = data[0].trim();
+                      String studentEmail = data[1].trim();
+    
+                      // Create Studentt object
+                      Studentt student = new Studentt(studentName, studentEmail);
+                      registrationSystem.addStudent(student);
+                      System.out.println("This student has been added: " + student.getName() + " - " + student.getContactDetails());
+    
+                      // Verify that the student is added correctly
+                      assertTrue(registrationSystem.getStudents().contains(student));
+                  });
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.err.println("Error reading student data from file.");
         }
-    } catch (IOException e) {
-        e.printStackTrace();
-        System.err.println("Error reading student data from file.");
+        System.out.println("Number of students in the system: " + registrationSystem.getStudents().size());
+    
+        // Assertions to check the state of the system after adding students
+        assertEquals(4, registrationSystem.getStudents().size()); // Assuming there were initially 3 students
+        assertEquals(0, registrationSystem.getSemesters().size());
+        assertEquals(0, registrationSystem.getCourses().size());
     }
-    System.out.println("Number of students in the system: " + registrationSystem.getStudents().size());
-
-    // Assertions to check the state of the system after adding students
-    assertEquals(4, registrationSystem.getStudents().size()); // Assuming there were initially 3 students
-    assertEquals(0, registrationSystem.getSemesters().size());
-    assertEquals(0, registrationSystem.getCourses().size());
-}
+    
 //---------------------------------------------------------------------------
 //For addFacultyMember method 
 
@@ -188,23 +188,23 @@ public void setUp5() {
 @Test
 public void testAddFacultyMemberFromFile() {
     try (BufferedReader reader = new BufferedReader(new FileReader("src/test/resources/F2.txt"))) {
-        String line;
-        while ((line = reader.readLine()) != null) {
-            String[] data = line.split(",");
-            String facultyName = data[0].trim();
-            String facultyContactDetails = data[1].trim();
+        reader.lines()
+              .map(line -> line.split(","))
+              .forEach(data -> {
+                  String facultyName = data[0].trim();
+                  String facultyContactDetails = data[1].trim();
 
-            // Create Faculty object
-            Faculty faculty = new Faculty(facultyName, facultyContactDetails);
+                  // Create Faculty object
+                  Faculty faculty = new Faculty(facultyName, facultyContactDetails);
 
-            // Debug information using a logging framework (replace with your preferred logging framework)
-            System.out.println("This faculty has been added: " + faculty.getName() + " - " + faculty.getContactDetails());
+                  // Debug information using a logging framework (replace with your preferred logging framework)
+                  System.out.println("This faculty has been added: " + faculty.getName() + " - " + faculty.getContactDetails());
 
-            registrationSystem.addFacultyMember(faculty);
+                  registrationSystem.addFacultyMember(faculty);
 
-            // Verify that the faculty member is added correctly
-            assertTrue(registrationSystem.getFacultyMembers().contains(faculty));
-        }
+                  // Verify that the faculty member is added correctly
+                  assertTrue(registrationSystem.getFacultyMembers().contains(faculty));
+              });
     } catch (IOException e) {
         // Log the error using a logging framework
         e.printStackTrace();
@@ -216,8 +216,8 @@ public void testAddFacultyMemberFromFile() {
 
     // Assertions to check the state of the system after adding faculty members
     assertEquals(3, registrationSystem.getFacultyMembers().size()); // Assuming there were initially 2 faculty members
-    
 }
+
 //---------------------------------------------------------------------
 //For addSemester method 
 
@@ -225,32 +225,31 @@ public void testAddFacultyMemberFromFile() {
 public void setUp6() {
     registrationSystem = new UniversityRegistrationSystem();
 }
-
 @Test
 public void testAddSemesterFromFile() {
     try (BufferedReader reader = new BufferedReader(new FileReader("src/test/resources/semester.txt"))) {
-        String line;
-        while ((line = reader.readLine()) != null) {
-            String[] data = line.split(",");
-            String semesterName = data[0].trim();
-            int semesterYear = Integer.parseInt(data[1].trim());
-            String courseName = data[2].trim();
-            int courseCredits = Integer.parseInt(data[3].trim());
+        reader.lines()
+              .map(line -> line.split(","))
+              .forEach(data -> {
+                  String semesterName = data[0].trim();
+                  int semesterYear = Integer.parseInt(data[1].trim());
+                  String courseName = data[2].trim();
+                  int courseCredits = Integer.parseInt(data[3].trim());
 
-            // Create Semestert object
-            Semestert semester = new Semestert(semesterName, semesterYear);
-            registrationSystem.addSemester(semester);
+                  // Create Semestert object
+                  Semestert semester = new Semestert(semesterName, semesterYear);
+                  registrationSystem.addSemester(semester);
 
-            // Optional: Verify that the semester is added correctly
-            assertTrue(registrationSystem.getSemesters().contains(semester));
+                  // Optional: Verify that the semester is added correctly
+                  assertTrue(registrationSystem.getSemesters().contains(semester));
 
-            // Create Courset object
-            Courset course = new Courset(courseName, courseCredits);
-            registrationSystem.addCourse(course);
+                  // Create Courset object
+                  Courset course = new Courset(courseName, courseCredits);
+                  registrationSystem.addCourse(course);
 
-            // Add the course to the semester
-            semester.addCourse(course);
-        }
+                  // Add the course to the semester
+                  semester.addCourse(course);
+              });
     } catch (IOException e) {
         e.printStackTrace();
     }
@@ -259,4 +258,5 @@ public void testAddSemesterFromFile() {
     assertEquals(3, registrationSystem.getSemesters().size()); // Assuming there were initially 2 semesters
     assertEquals(3, registrationSystem.getCourses().size()); // Assuming there were initially 0 courses
 }
+
 }

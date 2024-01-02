@@ -3,8 +3,14 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.PrintStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.time.DayOfWeek;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -27,36 +33,38 @@ public class StudentTest {
 
     private void readTestDataFromFile(String filename) {
         try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                String[] parts = line.split("\\|");
-                if (parts.length == 2) {
-                    Studentt testStudent = new Studentt(parts[0], parts[1]);
-                    testStudents.add(testStudent);
-                } else if (parts.length == 3) {
-                    Courset testCourse = new Courset(parts[0], Integer.parseInt(parts[1]));
-                    testCourses.add(testCourse);
-                }
-            }
+            br.lines()
+              .map(line -> line.split("\\|"))
+              .forEach(parts -> {
+                  if (parts.length == 2) {
+                      Studentt testStudent = new Studentt(parts[0], parts[1]);
+                      testStudents.add(testStudent);
+                  } else if (parts.length == 3) {
+                      Courset testCourse = new Courset(parts[0], Integer.parseInt(parts[1]));
+                      testCourses.add(testCourse);
+                  }
+              });
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+    
 
     @Test
     public void testHasCompletedCourse() {
-        for (Studentt testStudent : testStudents) {
-            for (Courset testCourse : testCourses) {
+        testStudents.forEach(testStudent -> 
+            testCourses.forEach(testCourse -> {
                 System.out.println("Testing course completion for student "
                         + testStudent.getName() + ": " + testCourse.getName());
-
+    
                 // Simulate completing a course for the student
                 testStudent.completeCourse(testCourse, 90.0);
-
+    
                 assertTrue(testStudent.hasCompletedCourse(testCourse));
-            }
-        }
+            })
+        );
     }
+    
     //---------------------------------------------------------------------------
 
 //For completeCourse method 
@@ -69,34 +77,28 @@ public class StudentTest {
 
     private void readTestDataFromFile2(String filename) {
         try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                String[] parts = line.split(",");
-                if (parts.length == 2) {
-                    // Assuming the first column is the name and the second is credits
-                    // Create Courset objects and enroll in them as prerequisites
-                    Courset testCourse = new Courset(parts[0], Integer.parseInt(parts[1]));
-                    student.enrollInCourse(testCourse);
-                }
-            }
+            br.lines()
+              .map(line -> line.split(","))
+              .filter(parts -> parts.length == 2)
+              .forEach(parts -> {
+                  Courset testCourse = new Courset(parts[0], Integer.parseInt(parts[1]));
+                  student.enrollInCourse(testCourse);
+              });
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
+    
     @Test
-    public void testCompleteCourse() {
+public void testCompleteCourse() {
+    student.getCurrentCourses().forEach(testCourse -> {
+        System.out.println("Testing course completion for: " + testCourse.getName());
+        student.completeCourse(testCourse, 90.0);
+        assertTrue(student.hasCompletedCourse(testCourse));
+        System.out.println("Course completion test passed for: " + testCourse.getName());
+    });
+}
 
-        // Assuming you have a test data collection containing Courset objects
-        // You can customize this based on your actual test data structure
-        for (Courset testCourse : student.getCurrentCourses()) {
-            System.out.println("Testing course completion for: " + testCourse.getName());
-            student.completeCourse(testCourse, 90.0);
-            assertTrue(student.hasCompletedCourse(testCourse));
-            System.out.println("Course completion test passed for: " + testCourse.getName());
-
-        }
-    }
 
     //--------------------------------------------------------------------------------------
 
@@ -108,33 +110,33 @@ public class StudentTest {
 
     private void readTestDataFromFile3(String filename) {
         try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                String[] parts = line.split(",");
-                if (parts.length == 2) {
-                    Courset testCourse = new Courset(parts[0], Integer.parseInt(parts[1]));
-                    student.enrollInCourse(testCourse);
-                }
-            }
+            br.lines()
+              .map(line -> line.split(","))
+              .filter(parts -> parts.length == 2)
+              .forEach(parts -> {
+                  Courset testCourse = new Courset(parts[0], Integer.parseInt(parts[1]));
+                  student.enrollInCourse(testCourse);
+              });
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+    
 
     @Test
-    public void testEnrollInCourse() {
-        
-        for (Courset testCourse : student.getCurrentCourses()) {
-            System.out.println("Testing enrollment in course: " + testCourse.getName());
-            student.enrollInCourse(testCourse);
-            // Print a message based on the enrollment status
-            if (student.getCurrentCourses().contains(testCourse)) {
-                System.out.println("Course enrollment test passed for: " + testCourse.getName());
-            } else {
-                System.out.println("Course enrollment test failed for: " + testCourse.getName());
-            }
+public void testEnrollInCourse() {
+    student.getCurrentCourses().forEach(testCourse -> {
+        System.out.println("Testing enrollment in course: " + testCourse.getName());
+        student.enrollInCourse(testCourse);
+        // Print a message based on the enrollment status
+        if (student.getCurrentCourses().contains(testCourse)) {
+            System.out.println("Course enrollment test passed for: " + testCourse.getName());
+        } else {
+            System.out.println("Course enrollment test failed for: " + testCourse.getName());
         }
-    }
+    });
+}
+
     //-----------------------------------------------------------
     //
     
@@ -142,26 +144,28 @@ public class StudentTest {
     public void setUp4() {
         testStudents = new ArrayList<>();
         testCourses = new ArrayList<>();
-        readTestDataFromFile("src/test/resources/stuudentf.txt");
+        readTestDataFromFile("src/test/resources/print.txt");
     }
 
-    private void readTestDataFromFile4(String filename) {
+    
+    public void readTestDataFromFile4(String filename) {
         try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                String[] parts = line.split("\\|");
-                if (parts.length == 2) {
-                    Studentt testStudent = new Studentt(parts[0], parts[1]);
-                    testStudents.add(testStudent);
-                } else if (parts.length == 3) {
-                    Courset testCourse = new Courset(parts[0], Integer.parseInt(parts[1]));
-                    testCourses.add(testCourse);
-                }
-            }
+            br.lines()
+              .map(line -> line.split("\\|"))
+              .forEach(parts -> {
+                  if (parts.length == 2) {
+                      Studentt testStudent = new Studentt(parts[0], parts[1]);
+                      testStudents.add(testStudent);
+                  } else if (parts.length == 3) {
+                      Courset testCourse = new Courset(parts[0], Integer.parseInt(parts[1]));
+                      testCourses.add(testCourse);
+                  }
+              });
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+    
 
     @Test
     public void testDropCourse() {
@@ -170,11 +174,13 @@ public class StudentTest {
         student.enrollInCourse(testCourse);
 
         // Drop the enrolled course
-        System.out.println("Testing dropping a course for student " + student.getName() +
+        System.out.println("This course dropped for student " + student.getName() +
                 ": " + testCourse.getName());
         student.dropCourse(testCourse);
 
         // Verify that the student is not currently enrolled in the dropped course
         assertFalse(student.getCurrentCourses().contains(testCourse));
     }
+
+    
 }
