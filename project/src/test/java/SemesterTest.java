@@ -19,39 +19,27 @@ public class SemesterTest {
 
     //For addCourse method 
     @Test
-    public void testAddCourse() {
-        try (BufferedReader reader = new BufferedReader(new FileReader(TEST_VALUES))) {
-            String line;
-            Semestert semester = null;
+public void testAddCourse() {
+    try (BufferedReader reader = new BufferedReader(new FileReader(TEST_VALUES))) {
+        reader.lines()
+              .map(line -> line.split(","))
+              .forEach(data -> {
+                  String semesterName = data[0];
+                  int year = Integer.parseInt(data[1]);
+                  Semestert semester = new Semestert(semesterName, year);
 
-            while ((line = reader.readLine()) != null) {
-                String[] data = line.split(",");
-                
-                // If semester is not initialized or semester name changes, create a new semester
-                if (semester == null || !data[0].equals(semester.getName())) {
-                    String semesterName = data[0];
-                    int year = Integer.parseInt(data[1]);
-                    semester = new Semestert(semesterName, year);
-                }
+                  String courseName = data[2];
+                  int credits = Integer.parseInt(data[3]);
+                  Courset course = new Courset(courseName, credits);
 
-                // Read course  information
-                String courseName = data[2];
-                int credits = Integer.parseInt(data[3]);
-
-                Courset course = new Courset(courseName, credits);
-
-                // Add course using the addCourse method
-                semester.addCourse(course);
-
-                // Assert that the course is added to the semester
-                assertTrue(semester.getCourses().contains(course));
-
-                
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+                  semester.addCourse(course);
+                  assertTrue(semester.getCourses().contains(course));
+              });
+    } catch (IOException e) {
+        e.printStackTrace();
     }
+}
+
     //-------------------------------------------------------------------------
     @Test
     public void testGetCourseScheduleFromFile() throws IOException {
