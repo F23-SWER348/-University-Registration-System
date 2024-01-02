@@ -93,18 +93,15 @@ public void testAddCourse() {
         assertEquals(expectedOutput.replaceAll("\\s", ""), outputStreamCaptor.toString().trim().replaceAll("\\s", ""));
     }
 
+
     private void loadCoursesFromFile(String filePath) throws IOException {
-        List<String> lines = Files.readAllLines(Path.of(filePath));
-        for (String line : lines) {
-            String[] parts = line.split(",");
-            if (parts.length == 2) {
-                String courseName = parts[0].trim();
-                int credits = Integer.parseInt(parts[1].trim());
-                Courset course = new Courset(courseName, credits);
-                registrationSystem.addCourse(course);
-            }
-        }
+        Files.lines(Path.of(filePath))
+             .map(line -> line.split(","))
+             .filter(parts -> parts.length == 2)
+             .map(parts -> new Courset(parts[0].trim(), Integer.parseInt(parts[1].trim())))
+             .forEach(registrationSystem::addCourse);
     }
+
 //--------------------------------------------------------------------------
 //For registerStudentForClass method
 @Before
