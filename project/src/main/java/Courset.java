@@ -5,6 +5,7 @@ import java.util.List;
 
 public class Courset {
 
+ 
     private String name;
     private int credits;
     private List<Faculty> faculty;
@@ -93,4 +94,5 @@ public class Courset {
     public void setCredits(int Credits) {
         this.credits=Credits;
     }
+
 }
