@@ -50,7 +50,7 @@ public class Courset {
     }
 
     // Method to add a weekly meeting to the course
-    public void addWeeklyMeeting(WeeklyMeeting meeting) {
+    public synchronized void addWeeklyMeeting(WeeklyMeeting meeting) {
         // Validate that the faculty does not have a conflicting meeting time
         if (isFacultyAvailable(meeting.getDayOfWeek(), meeting.getStartTime(), meeting.getEndTime())) {
             weeklyMeetings.add(meeting);
@@ -62,12 +62,12 @@ public class Courset {
     }
 
     // Method to add a prerequisite course
-    public void addPrerequisite(Courset prerequisite) {
+    public synchronized void addPrerequisite(Courset prerequisite) {
         prerequisites.add(prerequisite);
     }
 
     // Method to enroll a student in the course
-    public void enroll(Studentt student) {
+    public synchronized void enroll(Studentt student) {
         if (!enrolledStudents.contains(student) && prerequisitesSatisfied(student)) {
             enrolledStudents.add(student);
             System.out.println(student.getName() + " successfully enrolled in " + name);
