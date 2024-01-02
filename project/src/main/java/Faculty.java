@@ -3,6 +3,7 @@
     import java.time.LocalTime;
     import java.util.ArrayList;
     import java.util.List;
+import java.util.stream.Collectors;
 
     public class Faculty extends Person {
 
@@ -54,12 +55,10 @@
             }
         }
 
-        // Method to get the weekly meeting schedule for the faculty
-        public List<WeeklyMeeting> getWeeklyMeetingSchedule() {
-            List<WeeklyMeeting> schedule = new ArrayList<>();
-            for (Courset course : teachingCourses) {
-                schedule.addAll(course.getWeeklyMeetings());
-            }
-            return schedule;
-        }
+   // Method to get the weekly meeting schedule for the faculty
+public List<WeeklyMeeting> getWeeklyMeetingSchedule() {
+    return teachingCourses.stream()
+            .flatMap(course -> course.getWeeklyMeetings().stream())
+            .collect(Collectors.toList());
+}
     }

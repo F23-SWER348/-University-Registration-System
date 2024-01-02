@@ -93,6 +93,7 @@ public class URTest {
         assertEquals(expectedOutput.replaceAll("\\s", ""), outputStreamCaptor.toString().trim().replaceAll("\\s", ""));
     }
 
+
     private void loadCoursesFromFile(String filePath) throws IOException {
         Files.lines(Path.of(filePath))
              .map(line -> line.split(","))

@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Semestert {
     private String name;
@@ -38,12 +39,10 @@ public class Semestert {
         System.out.println("Course added to " + name + " semester: " + course.getName());
     }
 
-    // Method to get the course schedule for the semester
-    public  List<WeeklyMeeting> getCourseSchedule() {
-        List<WeeklyMeeting> schedule = new ArrayList<>();
-        for (Courset course : courses) {
-            schedule.addAll(course.getWeeklyMeetings());
-        }
-        return schedule;
-    }
+ // Method to get the course schedule for the semester
+public List<WeeklyMeeting> getCourseSchedule() {
+    return courses.stream()
+            .flatMap(course -> course.getWeeklyMeetings().stream())
+            .collect(Collectors.toList());
+}
 }
