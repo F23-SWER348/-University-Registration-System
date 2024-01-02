@@ -66,29 +66,33 @@ public class UniversityRegistrationSystem {
         }
         return false;
     }
-    // Check if two courses have conflicting meetings
-    private boolean haveConflictingMeetings(Courset course1, Courset course2) {
-        for (WeeklyMeeting meeting1 : course1.getWeeklyMeetings()) {
-            for (WeeklyMeeting meeting2 : course2.getWeeklyMeetings()) {
-                if (meeting1.getDayOfWeek() == meeting2.getDayOfWeek() &&
-                        !(meeting2.getEndTime().isBefore(meeting1.getStartTime()) ||
-                                meeting2.getStartTime().isAfter(meeting1.getEndTime()))) {
-                    System.out.println("Conflict detected between " + course1.getName() + " and " + course2.getName());
-                    System.out.println("Meeting 1: " + meeting1);
-                    System.out.println("Meeting 2: " + meeting2);
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
 
-    // Method to browse available courses
-    public void browseCourses() {
-        for (Courset course : courses) {
-            System.out.println(course.getName() + " - " + course.getCredits() + " credits");
-        }
+    // Check if two courses have conflicting meetings
+private boolean haveConflictingMeetings(Courset course1, Courset course2) {
+    return course1.getWeeklyMeetings().stream()
+            .anyMatch(meeting1 -> course2.getWeeklyMeetings().stream()
+                    .anyMatch(meeting2 -> haveConflictingTimes(meeting1, meeting2, course1, course2)));
+}
+
+// Helper method to check if two meetings have conflicting times
+private boolean haveConflictingTimes(WeeklyMeeting meeting1, WeeklyMeeting meeting2, Courset course1, Courset course2) {
+    if (meeting1.getDayOfWeek() == meeting2.getDayOfWeek() &&
+            !(meeting2.getEndTime().isBefore(meeting1.getStartTime()) ||
+                    meeting2.getStartTime().isAfter(meeting1.getEndTime()))) {
+        System.out.println("Conflict detected between " + course1.getName() + " and " + course2.getName());
+        System.out.println("Meeting 1: " + meeting1);
+        System.out.println("Meeting 2: " + meeting2);
+        return true;
     }
+    return false;
+}
+
+
+  // Method to browse available courses
+public void browseCourses() {
+    courses.stream()
+            .forEach(course -> System.out.println(course.getName() + " - " + course.getCredits() + " credits"));
+}
 
     // Method to register a student for a class
     public void registerStudentForClass(Studentt student, Courset course) {

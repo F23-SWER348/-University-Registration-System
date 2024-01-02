@@ -59,19 +59,19 @@ public class Studentt extends Person {
         }
     }
 
-     // Method to print the student's weekly schedule
-     public void printWeeklySchedule() {
-        System.out.println("Weekly Schedule for " + getName() + ":");
-        for (Courset course : currentCourses) {
-            System.out.println("Course: " + course.getName());
-            List<WeeklyMeeting> courseSchedule = course.getWeeklyMeetings();
-            for (WeeklyMeeting meeting : courseSchedule) {
-                System.out.println("Day: " + meeting.getDayOfWeek() +
-                        ", Time: " + meeting.getStartTime() + " - " + meeting.getEndTime());
-            }
-            System.out.println("-------------------------------");
-        }
-    }
+// Method to print the student's weekly schedule
+public void printWeeklySchedule() {
+    System.out.println("Weekly Schedule for " + getName() + ":");
+    currentCourses.stream()
+            .forEach(course -> {
+                System.out.println("Course: " + course.getName());
+                course.getWeeklyMeetings().forEach(meeting -> {
+                    System.out.println("Day: " + meeting.getDayOfWeek() +
+                            ", Time: " + meeting.getStartTime() + " - " + meeting.getEndTime());
+                });
+                System.out.println("-------------------------------");
+            });
+}
 
 
 
