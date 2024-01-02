@@ -76,4 +76,66 @@ public void printWeeklySchedule() {
 
 
 
+    // Method to add a new course with conflict checking
+    public void addCourse(Courset newCourse) {
+        if (!hasScheduleConflict(newCourse)) {
+            currentCourses.add(newCourse);
+            System.out.println("Course added successfully.");
+        } else {
+            System.out.println("Schedule conflict! The course could not be added.");
+            // Handle the conflict as needed (throw an exception, show a message, etc.)
+        }
+    }
+
+    // Check if there is a schedule conflict with the new course
+    public boolean hasScheduleConflict(Courset newCourse) {
+        for (Courset existingCourse : currentCourses) {
+            if (haveConflictingMeetings(existingCourse, newCourse)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    // Check if two courses have conflicting meetings
+private boolean haveConflictingMeetings(Courset course1, Courset course2) {
+    return course1.getWeeklyMeetings().stream()
+            .anyMatch(meeting1 -> course2.getWeeklyMeetings().stream()
+                    .anyMatch(meeting2 -> haveConflictingTimes(meeting1, meeting2, course1, course2)));
+}
+
+// Helper method to check if two meetings have conflicting times
+private boolean haveConflictingTimes(WeeklyMeeting meeting1, WeeklyMeeting meeting2, Courset course1, Courset course2) {
+    if (meeting1.getDayOfWeek() == meeting2.getDayOfWeek() &&
+            !(meeting2.getEndTime().isBefore(meeting1.getStartTime()) ||
+                    meeting2.getStartTime().isAfter(meeting1.getEndTime()))) {
+        System.out.println("Conflict detected between " + course1.getName() + " and " + course2.getName());
+        System.out.println("Meeting 1: " + meeting1);
+        System.out.println("Meeting 2: " + meeting2);
+        return true;
+    }
+    return false;
+}
+
+
+  // Method to browse available courses
+public void browseCourses() {
+    currentCourses.stream()
+            .forEach(course -> System.out.println(course.getName() + " - " + course.getCredits() + " credits"));
+}
+
+    // Method to register a student for a class
+    public void registerStudentForClass(Studentt student, Courset course) {
+        if (course != null && student != null && course.getPrerequisites().stream().allMatch(student::hasCompletedCourse)) {
+            course.enroll(student);
+            System.out.println(student.getName() + " successfully registered for " + course.getName());
+        } else {
+            System.out.println("Registration unsuccessful. Prerequisites not met.");
+            // Handle the prerequisites not met situation as needed
+        }
+    }
+
+
+
+
 }
