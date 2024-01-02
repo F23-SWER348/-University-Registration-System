@@ -66,7 +66,6 @@ public class UniversityRegistrationSystem {
         }
         return false;
     }
-
     // Check if two courses have conflicting meetings
     private boolean haveConflictingMeetings(Courset course1, Courset course2) {
         for (WeeklyMeeting meeting1 : course1.getWeeklyMeetings()) {
@@ -74,6 +73,9 @@ public class UniversityRegistrationSystem {
                 if (meeting1.getDayOfWeek() == meeting2.getDayOfWeek() &&
                         !(meeting2.getEndTime().isBefore(meeting1.getStartTime()) ||
                                 meeting2.getStartTime().isAfter(meeting1.getEndTime()))) {
+                    System.out.println("Conflict detected between " + course1.getName() + " and " + course2.getName());
+                    System.out.println("Meeting 1: " + meeting1);
+                    System.out.println("Meeting 2: " + meeting2);
                     return true;
                 }
             }
