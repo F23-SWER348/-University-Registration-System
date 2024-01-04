@@ -6,8 +6,11 @@ import java.util.Map;
 import java.util.Optional;
 
 public class Studentt extends Person {
+
     private Map<Courset,Double> completedCourses;
     private List<Courset> currentCourses;
+    private Double GPA ;
+    private String StateOfStudent;
 
     public Studentt(String name, String contactDetails) {
         super(name, contactDetails);
@@ -21,6 +24,16 @@ public class Studentt extends Person {
 
     public List<Courset> getCurrentCourses() {
         return currentCourses;
+    }
+
+    public Double getGPA(){
+        this.GPA=calculateGPA();
+        return calculateGPA();
+    }
+
+      public String getState(){
+        this.StateOfStudent=getState();
+        return getState();
     }
 
     // Method to check if the student has completed a specific course
@@ -137,6 +150,50 @@ public void browseCourses() {
     }
 
 
+      // Method to calculate GPA
+      public double calculateGPA() {
+        if (completedCourses.isEmpty()) {
+            System.out.println(name + " has not completed any courses yet. GPA is not applicable.");
+            return 0.0;
+        }
+
+        double totalCredits = 0.0;
+        double totalWeightedPoints = 0.0;
+
+        for (Map.Entry<Courset, Double> entry : completedCourses.entrySet()) {
+            Courset course = entry.getKey();
+            double grade = entry.getValue();
+            
+            // Assuming the course credits are stored in the Courset class
+            int credits = course.getCredits();
+
+            totalWeightedPoints += grade * credits;
+            totalCredits += credits;
+        }
+
+        if (totalCredits == 0.0) {
+            System.out.println(name + " has completed courses, but credits are not available for GPA calculation.");
+            return 0.0;
+        }
+
+        return totalWeightedPoints / totalCredits;
+    }
+
+
+      // Method to determine student status based on GPA
+      public String getStudentStatus() {
+        double gpa = calculateGPA();
+
+        if (gpa < 2.0) {
+            return "Preparation";
+        } else if (gpa < 3.0) {
+            return "Not Acceptable";
+        } else if (gpa < 3.50) {
+            return "Honors";
+        } else {
+            return "Dean's List ";
+        }
+    }
 
 
 }
