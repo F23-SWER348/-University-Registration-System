@@ -43,7 +43,8 @@ public class Main {
             student.completeCourse(course1, 0.0);
             student.completeCourse(course3, 3.0);
             student.completeCourse(course5, 2.2);
-
+ 
+            
             System.out.println(student.calculateGPA()); 
             System.out.println(student.getStudentStatus()); 
 
