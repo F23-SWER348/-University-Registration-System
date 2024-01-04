@@ -1,6 +1,7 @@
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
@@ -181,6 +182,37 @@ public void testEnrollInCourse() {
         // Verify that the student is not currently enrolled in the dropped course
         assertFalse(student.getCurrentCourses().contains(testCourse));
     }
+//---------------------------------------------------------------------
+//For CalculateGPA
+@Test
+public void testCalculateGPA() {
+    Studentt student = new Studentt("Nour", "Nour@Gmail.com");
 
-    
+    try (BufferedReader reader = new BufferedReader(new FileReader("src/test/resources/gpa.txt"))) {
+        String line;
+        while ((line = reader.readLine()) != null) {
+            String[] data = line.split(",");
+            String courseName = data[0].trim();
+            double grade = Double.parseDouble(data[1].trim());
+            int credits = Integer.parseInt(data[2].trim());
+
+            // Create a test course
+            Courset course = new Courset(courseName, credits);
+
+            // Add the completed course to the student
+            student.completeCourse(course, grade);
+        }
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+
+    // Calculate GPA
+    double calculatedGPA = student.calculateGPA();
+
+    // Set the expected GPA
+    double expectedGPA = 3.4157894736842107;
+
+    // Assert that the calculated GPA matches the expected GPA with a small delta for floating-point precision
+    assertEquals(expectedGPA, calculatedGPA, 0.01); 
+}
 }
