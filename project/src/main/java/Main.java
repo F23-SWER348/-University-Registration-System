@@ -82,6 +82,7 @@ double calculatedGPA = student2.calculateGPA();
 
 // Print the calculated GPA
 System.out.println("Calculated GPA: " + calculatedGPA);
+System.out.println(student2.getStudentStatus()); 
 
 // Compare with the expected GPA 
 double expectedGPA = 3.4166666666666665; 
