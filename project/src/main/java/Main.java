@@ -13,7 +13,7 @@ public class Main {
 
       
             // Creating a student
-            Studentt student = new Studentt("John Doe", "john.doe@example.com");
+            Studentt student = new Studentt("ZN", "ZN@Gmail.com");
     
             // Creating a course
             Courset course1 = new Courset("Math 101", 3);
@@ -62,9 +62,38 @@ public class Main {
              // Displaying the faculty's weekly schedule
              System.out.println(fac1.getWeeklyMeetingSchedule());
 
+//////////////////////
+//For GPA
 
+Studentt student2 = new Studentt("ZNN", "ZNN@HII.com");
 
+// Add some sample completed courses
+Courset mathCourse = new Courset("Math101", 4);
+student2.completeCourse(mathCourse, 3.5);
 
+Courset englishCourse = new Courset("English202", 3);
+student2.completeCourse(englishCourse, 4.0);
+
+Courset physicsCourse = new Courset("Physics301", 5);
+student2.completeCourse(physicsCourse, 3.0);
+
+// Calculate GPA
+double calculatedGPA = student2.calculateGPA();
+
+// Print the calculated GPA
+System.out.println("Calculated GPA: " + calculatedGPA);
+System.out.println(student2.getStudentStatus()); 
+
+// Compare with the expected GPA 
+double expectedGPA = 3.4166666666666665; 
+
+// Check if the calculated GPA matches the expected GPA
+if (Math.abs(calculatedGPA - expectedGPA) < 0.01) {
+    System.out.println("Test passed!");
+} else {
+    System.out.println("Test failed!");
+}
+}
 
 
 
@@ -80,4 +109,4 @@ public class Main {
 
         
      }
-}
+
