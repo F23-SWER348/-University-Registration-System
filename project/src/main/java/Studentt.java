@@ -150,33 +150,34 @@ public void browseCourses() {
     }
 
 
-      // Method to calculate GPA
-      public double calculateGPA() {
+    public double calculateGPA() {
         if (completedCourses.isEmpty()) {
             System.out.println(name + " has not completed any courses yet. GPA is not applicable.");
             return 0.0;
         }
-
+    
         double totalCredits = 0.0;
         double totalWeightedPoints = 0.0;
-
-        for (Map.Entry<Courset, Double> entry : completedCourses.entrySet()) {
-            Courset course = entry.getKey();
-            double grade = entry.getValue();
-            
-            // Assuming the course credits are stored in the Courset class
-            int credits = course.getCredits();
-
-            totalWeightedPoints += grade * credits;
-            totalCredits += credits;
-        }
-
-        if (totalCredits == 0.0) {
+    
+        totalCredits = completedCourses.entrySet().parallelStream()
+                .mapToDouble(entry -> {
+                    Courset course = entry.getKey();
+                    double grade = entry.getValue();
+                    int credits = course.getCredits();
+                    return grade * credits;
+                })
+                .sum();
+    
+        totalWeightedPoints = completedCourses.entrySet().parallelStream()
+                .mapToDouble(entry -> entry.getKey().getCredits())
+                .sum();
+    
+        if (totalWeightedPoints == 0.0) {
             System.out.println(name + " has completed courses, but credits are not available for GPA calculation.");
             return 0.0;
         }
-
-        return totalWeightedPoints / totalCredits;
+    
+        return totalCredits / totalWeightedPoints;
     }
 
 
