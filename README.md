@@ -1,17 +1,13 @@
-"After the date of 21/12, WE established a separate branches which are ZainabBranch and Nour. Initially, our collaboration was within the same branch which is noza, 
-but subsequently, we transitioned to working on distinct branches to demonstrate our proficiency in utilizing Git."
 
+# University Registration System 🏫
 
-
-University Registration System
-
-* Description: 
+## Description: 
 The University Registration System is a comprehensive System designed for registration managers in a university setting. The system facilitates the registration process for students, manages course assignments, and aids in organizing semesters. It provides a user-friendly interface for registration managers to efficiently handle various tasks related to student enrollment and course management.
 
-* Access: 
+## Access: 
 Only registered managers with the appropriate credentials can access the system.
 
-* Features: 
+## Features: 
 
 1. Student Registration
 Add New Students
